@@ -5,7 +5,6 @@ import study.datajpa.entity.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,5 +43,11 @@ public class MemberJpaRepository {
         return em.find(Member.class, id);
     }
 
+    public List<Member> findByUserNameAndAgeGreaterThen(String userName, int age){
+        return em.createQuery("select m from Member m where m.userName = :userName and m.age > :age")
+                .setParameter("userName", userName)
+                .setParameter("age", age)
+                .getResultList();
+    }
 
 }
