@@ -34,7 +34,6 @@ class DataJpaApplicationTests {
         JPAQueryFactory query = new JPAQueryFactory(em);
         QHello qHello = new QHello("h");
 
-
         Hello result = query.selectFrom(qHello).fetchOne();
 
         assertThat(result).isEqualTo(hello);
