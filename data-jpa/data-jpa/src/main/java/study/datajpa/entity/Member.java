@@ -7,18 +7,21 @@ import javax.persistence.*;
 @Entity
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id", "username", "age"})
+@ToString(of = {"id", "userName", "age"})
 public class Member extends JpaBaseEntity{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
+
     private String userName;
     private int age;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+
 
     public Member(String username){
         this.userName = username;
