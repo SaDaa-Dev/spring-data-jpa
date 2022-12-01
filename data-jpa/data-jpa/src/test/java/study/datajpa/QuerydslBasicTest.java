@@ -655,12 +655,14 @@ public class QuerydslBasicTest {
                 .select(member.userName)
                 .from(member)
 //                .where(member.userName.eq(Expressions.stringTemplate("function('lower', {0})", member.userName)))
-                .where(member.userName.eq(member.userName.lower()))
+                .where(member.userName.eq(member.userName))
                 .fetch();
 
         for (String s : result) {
             System.out.println("s = " + s);
         }
+
+
     }
 
 }

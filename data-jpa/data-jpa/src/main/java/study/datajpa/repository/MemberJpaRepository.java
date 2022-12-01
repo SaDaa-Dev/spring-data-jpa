@@ -1,5 +1,6 @@
 package study.datajpa.repository;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import study.datajpa.entity.Member;
 
