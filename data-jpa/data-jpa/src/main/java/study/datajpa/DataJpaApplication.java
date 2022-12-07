@@ -21,7 +21,6 @@ public class DataJpaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DataJpaApplication.class, args);
-		System.out.println("sync");
 	}
 	public AuditorAware<String> auditorProvider(){
 		return () -> Optional.of(UUID.randomUUID().toString());
