@@ -1,8 +1,9 @@
-package study.datajpa.querydsl.repository;
+package study.datajpa.repository;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
@@ -22,22 +23,24 @@ class MemberQuerydslRepositoryTest {
     EntityManager em;
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberQuerydslRepository memberQuerydslRepository;
 
     @Test
     public void basicTest() throws Exception{
         Member member = new Member("member1", 10);
-        memberRepository.save(member);
+        memberQuerydslRepository.save(member);
 
-        Member findMember = memberRepository.findById(member.getId()).get();
+        Member findMember = memberQuerydslRepository.findById(member.getId()).get();
         assertThat(findMember).isEqualTo(member);
 
-        List<Member> result1 = memberRepository.findAll();
+        List<Member> result1 = memberQuerydslRepository.findAll_Querydsl();
         assertThat(result1).containsExactly(member);
 
-        List<Member> result2 = memberRepository.findByUserName("member1");
+        List<Member> result2 = memberQuerydslRepository.findByUserName_Querydsl("member1");
         assertThat(result2).containsExactly(member);
     }
+
+
 
 
 

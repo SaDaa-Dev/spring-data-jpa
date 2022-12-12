@@ -1,4 +1,4 @@
-package study.datajpa.entity;
+package study.datajpa.MemberRepository.entity;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;

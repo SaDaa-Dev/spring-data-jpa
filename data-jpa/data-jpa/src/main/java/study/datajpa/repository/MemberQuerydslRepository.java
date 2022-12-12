@@ -1,4 +1,4 @@
-package study.datajpa.querydsl.repository;
+package study.datajpa.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -13,9 +13,14 @@ import static study.datajpa.entity.QMember.member;
 
 @Repository
 public class MemberQuerydslRepository {
-    private EntityManager em;
 
-    private JPAQueryFactory queryFactory;
+    private final EntityManager em;
+    private final JPAQueryFactory queryFactory;
+
+    public MemberQuerydslRepository(EntityManager em) {
+        this.em = em;
+        this.queryFactory = new JPAQueryFactory(em);
+    }
 
     public void save(Member member){
         em.persist(member);

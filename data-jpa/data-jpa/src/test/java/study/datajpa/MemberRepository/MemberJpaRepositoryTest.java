@@ -1,12 +1,12 @@
 package study.datajpa.MemberRepository;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 import study.datajpa.entity.Member;
+import study.datajpa.repository.MemberQuerydslRepository;
 import study.datajpa.repository.MemberJpaRepository;
 
 import java.util.List;
@@ -20,6 +20,9 @@ class MemberJpaRepositoryTest {
 
     @Autowired
     MemberJpaRepository memberJpaRepository;
+
+    @Autowired
+    MemberQuerydslRepository memberQuerydslRepository;
 
     @Test
     public void testMember(){
@@ -114,6 +117,22 @@ class MemberJpaRepositoryTest {
       int resultCount = memberJpaRepository.bulkAgePlus(20);
       //then
       assertThat(resultCount).isEqualTo(3);
+
+  }
+
+  @Test
+  public void basicTest(){
+      Member member = new Member("member1", 10);
+      memberQuerydslRepository.save(member);
+
+      Member findMember = memberQuerydslRepository.findById(member.getId()).get();
+      assertThat(findMember).isEqualTo(member);
+
+      List<Member> result1 = memberQuerydslRepository.findAll_Querydsl();
+      assertThat(result1).containsExactly(member);
+
+      List<Member> result2 = memberQuerydslRepository.findByUserName_Querydsl("member1");
+      assertThat(result2).containsExactly(member);
 
   }
 }
