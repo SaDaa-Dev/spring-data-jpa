@@ -6,9 +6,10 @@ import AttandanceBook from "./chapter10/AttandanceBook";
 import {Sign} from "crypto";
 import SignUp from "./chapter12/SignUp";
 import Calculator from "./chapter13/Calculator";
+import ProfileCard from "./chapter14/ProfileCard";
 function App() {
   return (
-    <Calculator/>
+    <ProfileCard/>
   );
 }
 
