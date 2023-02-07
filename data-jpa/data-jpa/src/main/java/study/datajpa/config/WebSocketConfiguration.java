@@ -3,22 +3,23 @@ package study.datajpa.config;
 import org.springframework.boot.autoconfigure.graphql.servlet.GraphQlWebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.*;
 
 @Configuration
-@EnableWebSocket
-public class WebSocketConfiguration implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class WebSocketConfiguration implements WebSocketMessageBrokerConfigurer {
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry
-                .addHandler(signalingSocketHandler(), "/test")
-                .setAllowedOrigins("*");
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/test")
+                .setAllowedOrigins("*")
+                .withSockJS();
     }
 
-    @Bean
-    public WebSocketHandler signalingSocketHandler(){
-        return new WebSocketHandler();
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.enableSimpleBroker("/queue", "/topic");
+
+        registry.setApplicationDestinationPrefixes("/app");
     }
 }
